@@ -7,7 +7,7 @@ body {
   text-align: center;
 }
 
-canvas {
+#canvas {
   text-align: center;
   background-color: rgb(189, 177, 125);
   width: 600px;
