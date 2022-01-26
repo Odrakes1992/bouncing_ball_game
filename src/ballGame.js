@@ -6,7 +6,7 @@ var pos = {
   x: 100,
   y: 100,
 };
-var numberOfBalls = 10;
+var numberOfBalls = 3;
 
 class Ball {
   constructor(pos) {
@@ -71,7 +71,7 @@ for (let index = 0; index < numberOfBalls; index++) {
 
 setInterval(function () {
   canvasObject.clearRect(0, 0, canvas.width, canvas.height);
-  for (let index = 0; index < numberOfBalls; index++) {
+  for (let index = 0; index < balls.length; index++) {
     balls[index].updateBall();
   }
 }, 10);
@@ -82,6 +82,15 @@ function printMousePos(event) {
   console.log(`${event.clientX} and ${event.clientY}`);
   // document.body.textContent =
   //   "clientX: " + event.clientX + " - clientY: " + event.clientY;
+
+  newPosition = {
+    x: event.clientX,
+    y: event.clientY,
+  };
+
+  newBall = new Ball(newPosition);
+  balls.push(newBall);
+  newBall.drawBall();
 }
 
 document.addEventListener("click", printMousePos);
