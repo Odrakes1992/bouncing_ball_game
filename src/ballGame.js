@@ -6,7 +6,12 @@ var pos = {
   x: 100,
   y: 100,
 };
+
+// start off with three balls bouncing to test functionality
+
 var numberOfBalls = 3;
+
+// Create a ball class which is initiated on a click of the page
 
 class Ball {
   constructor(pos) {
@@ -38,6 +43,8 @@ class Ball {
     }
   }
 
+  // starts the ball path
+
   drawBall() {
     canvasObject.beginPath();
     canvasObject.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI);
@@ -46,6 +53,7 @@ class Ball {
     canvasObject.closePath();
   }
 
+  // function for updating path and bounce off the sides and bottom
   updateBall() {
     if (
       this.pos.x + this.dx > canvas.width - this.radius ||
@@ -76,6 +84,8 @@ function randomColor() {
   const rc3 = rc2.toString(16);
   return "#" + rc3;
 }
+
+// start the balls off at random positions on the canvas
 
 function randomPos() {
   pos = {
