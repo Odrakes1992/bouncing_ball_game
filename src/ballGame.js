@@ -15,20 +15,24 @@ class Ball {
     this.color = randomColor();
     this.dx = Math.floor(Math.random() * 5 + 1);
     this.dy = -Math.floor(Math.random() * 5 + 1);
-    this.gravity = 0.1;
+    this.gravity = 0.4;
+    this.friction = 0.95;
     this.gravitySpeed = 0;
-    this.bounce = 0.8;
+    this.bounce = 0.6;
   }
 
   // function for when the ball hits the bottom
   hitbottom() {
-    var bottom = canvas.height - this.radius * 2;
+    var bottom = canvas.height - this.radius; // diameter == height
     if (this.pos.y > bottom) {
-      console.log(
-        `This is the bottom ${bottom} and this is the current height of the ball ${this.pos.y} - reached it`
-      );
-      //this.pos.y = bottom;
-      //this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+      // console.log(
+      //   `This is the bottom ${bottom} and this is the current height of the ball ${this.pos.y} - reached it`
+      // );
+      this.pos.y = bottom;
+      //this.pos.x = 10
+      this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+      this.dx *= this.friction;
+      this.dy *= 0.9;
     } else {
       //console.log(bottom);
     }
@@ -55,8 +59,9 @@ class Ball {
     ) {
       this.dy = -this.dy;
     }
+    this.gravitySpeed += this.gravity;
     this.pos.x += this.dx;
-    this.pos.y += this.dy;
+    this.pos.y += this.dy + this.gravitySpeed;
     this.hitbottom();
     canvasObject.beginPath();
     canvasObject.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI);
