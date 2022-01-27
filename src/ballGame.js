@@ -11,10 +11,27 @@ var numberOfBalls = 3;
 class Ball {
   constructor(pos) {
     this.pos = pos;
-    this.radius = Math.floor(Math.random() * 25);
+    this.radius = 20; //Math.floor(Math.random() * 25);
     this.color = randomColor();
     this.dx = Math.floor(Math.random() * 5 + 1);
     this.dy = -Math.floor(Math.random() * 5 + 1);
+    this.gravity = 0.1;
+    this.gravitySpeed = 0;
+    this.bounce = 0.8;
+  }
+
+  // function for when the ball hits the bottom
+  hitbottom() {
+    var bottom = canvas.height - this.radius * 2;
+    if (this.pos.y > bottom) {
+      console.log(
+        `This is the bottom ${bottom} and this is the current height of the ball ${this.pos.y} - reached it`
+      );
+      //this.pos.y = bottom;
+      //this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+    } else {
+      //console.log(bottom);
+    }
   }
 
   drawBall() {
@@ -40,6 +57,7 @@ class Ball {
     }
     this.pos.x += this.dx;
     this.pos.y += this.dy;
+    this.hitbottom();
     canvasObject.beginPath();
     canvasObject.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI);
     canvasObject.fillStyle = this.color;
@@ -87,10 +105,11 @@ function printMousePos(event) {
     x: event.clientX,
     y: event.clientY,
   };
-
+  console.log(canvas.height);
   newBall = new Ball(newPosition);
   balls.push(newBall);
   newBall.drawBall();
 }
 
 document.addEventListener("click", printMousePos);
+console.log(canvas.height);
